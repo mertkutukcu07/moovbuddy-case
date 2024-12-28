@@ -1,6 +1,15 @@
 import { Heart } from 'phosphor-react-native'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+    Animated,
+    Image,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from 'react-native'
 
+import { useCardAnimation } from '@/hooks/useCardAnimation'
+import { useHeartAnimation } from '@/hooks/useHeartAnimation'
 import { theme } from '@/theme'
 import { MovieItem } from '@/types/movies/response'
 import { getPosterUrl } from '@/utils/tmdb'
@@ -19,35 +28,52 @@ const MovieCard = ({
     handleToggleFavorite,
 }: MovieCardProps) => {
     const posterUrl = getPosterUrl(movie.poster_path)
+    const { heartStyle, animateHeart } = useHeartAnimation()
+    const { cardStyle, animatePress } = useCardAnimation()
+
+    const onHeartPress = () => {
+        animateHeart(!isFavorite)
+        handleToggleFavorite()
+    }
+
+    const handlePress = () => {
+        animatePress()
+        onPress(movie.id)
+    }
 
     return (
         <TouchableOpacity
             style={styles.container}
-            onPress={() => onPress(movie.id)}>
-            <Image
-                source={{ uri: posterUrl }}
-                style={styles.poster}
-                resizeMode="cover"
-            />
-            <View style={styles.infoContainer}>
-                <Text style={styles.title} numberOfLines={1}>
-                    {movie.title}
-                </Text>
-                <View style={styles.ratingContainer}>
-                    <Text style={styles.rating}>
-                        {movie.vote_average.toFixed(1)}
+            activeOpacity={1}
+            onPress={handlePress}>
+            <Animated.View style={[styles.animatedContainer, cardStyle]}>
+                <Image
+                    source={{ uri: posterUrl }}
+                    style={styles.poster}
+                    resizeMode="cover"
+                />
+                <View style={styles.infoContainer}>
+                    <Text style={styles.title} numberOfLines={1}>
+                        {movie.title}
                     </Text>
-                    <TouchableOpacity
-                        style={styles.favoriteButton}
-                        onPress={handleToggleFavorite}>
-                        <Heart
-                            size={20}
-                            color={theme.colors.gray[500]}
-                            weight={isFavorite ? 'fill' : 'regular'}
-                        />
-                    </TouchableOpacity>
+                    <View style={styles.ratingContainer}>
+                        <Text style={styles.rating}>
+                            {movie.vote_average.toFixed(1)}
+                        </Text>
+                        <TouchableOpacity
+                            style={styles.favoriteButton}
+                            onPress={onHeartPress}>
+                            <Animated.View style={heartStyle}>
+                                <Heart
+                                    size={20}
+                                    color={theme.colors.gray[500]}
+                                    weight={isFavorite ? 'fill' : 'regular'}
+                                />
+                            </Animated.View>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+            </Animated.View>
         </TouchableOpacity>
     )
 }
@@ -61,6 +87,10 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.white,
         borderRadius: theme.radius.md,
         ...theme.shadows.md,
+    },
+    animatedContainer: {
+        flex: 1,
+        width: '100%',
     },
     poster: {
         width: '100%',

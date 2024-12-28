@@ -78,10 +78,10 @@ const MovieDetailScreen = ({ route, navigation }: MovieDetailScreenProps) => {
                         horizontal
                         showsHorizontalScrollIndicator={false}
                         contentContainerStyle={styles.artistList}
-                        {...artistListOptimizations}
                         snapToAlignment="start"
                         decelerationRate="fast"
                         snapToInterval={150}
+                        {...artistListOptimizations}
                     />
                 </View>
             </ScrollView>
