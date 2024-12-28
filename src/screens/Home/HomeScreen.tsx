@@ -3,19 +3,20 @@ import { useCallback } from 'react'
 import { FlatList, SafeAreaView, StyleSheet } from 'react-native'
 
 import { Header, MovieCard, TextField } from '@/components'
+import { useCreateFavoriteMovie } from '@/hooks/useCreateFavoriteMovie'
 import { useFavorites } from '@/hooks/useFavorites'
 import { useFlatListOptimizations } from '@/hooks/useFlatlistOptimizations'
 import { useSearchMovies } from '@/hooks/useSearchMovies'
 import { RouteNames } from '@/navigation/RouteNames'
 import { TabNavigatorScreenProps } from '@/navigation/stacks/TabStack'
 import { theme } from '@/theme'
-import { MovieDetailsResponse } from '@/types/movieDetails/response'
 
 interface HomeScreenProps extends TabNavigatorScreenProps<RouteNames.Home> {}
 
 const HomeScreen = ({ navigation }: HomeScreenProps) => {
     const { movies, handleSearch, searchQuery } = useSearchMovies()
     const { isFavorite, handleToggleFavorite } = useFavorites()
+    const { createFromMovieItem } = useCreateFavoriteMovie()
     const handleMoviePress = useCallback(
         (movieId: number) => {
             // @ts-ignore
@@ -53,13 +54,14 @@ const HomeScreen = ({ navigation }: HomeScreenProps) => {
                         movie={item}
                         onPress={handleMoviePress}
                         isFavorite={isFavorite(item.id)}
-                        handleToggleFavorite={() =>
-                            handleToggleFavorite(
-                                movies?.results?.find(
-                                    movie => movie.id === item.id
-                                ) as unknown as MovieDetailsResponse
+                        handleToggleFavorite={() => {
+                            const movie = movies?.results?.find(
+                                m => m.id === item.id
                             )
-                        }
+                            if (movie) {
+                                handleToggleFavorite(createFromMovieItem(movie))
+                            }
+                        }}
                     />
                 )}
                 {...movieListOptimizations}

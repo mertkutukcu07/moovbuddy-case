@@ -6,8 +6,8 @@ import {
     selectIsFavoriteMovie,
 } from '@/store/features/favorites/favoritesSelectors'
 import { toggleFavorite } from '@/store/features/favorites/favoritesSlice'
+import { FavoriteMovie } from '@/store/features/favorites/types'
 import { useAppSelector } from '@/store/hooks/useAppSelector'
-import { MovieDetailsResponse } from '@/types/movieDetails/response'
 
 export const useFavorites = () => {
     const dispatch = useDispatch()
@@ -22,7 +22,7 @@ export const useFavorites = () => {
     )
 
     const handleToggleFavorite = useCallback(
-        (movie: MovieDetailsResponse) => {
+        (movie: FavoriteMovie) => {
             dispatch(toggleFavorite({ movie }))
         },
         [dispatch]

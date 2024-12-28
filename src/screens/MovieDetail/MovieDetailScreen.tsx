@@ -11,6 +11,7 @@ import {
 
 import { ArtistItem, Header, MovieGenres, MovieOverview } from '@/components'
 import MovieHeader from '@/components/movieDetail/movieHeader'
+import { useCreateFavoriteMovie } from '@/hooks/useCreateFavoriteMovie'
 import { useFavorites } from '@/hooks/useFavorites'
 import { useFlatListOptimizations } from '@/hooks/useFlatlistOptimizations'
 import { useGetArtistDetails } from '@/hooks/useGetArtistDetails'
@@ -37,6 +38,7 @@ const MovieDetailScreen = ({ route, navigation }: MovieDetailScreenProps) => {
         windowSize: 2,
     })
     const { isFavorite, handleToggleFavorite } = useFavorites()
+    const { createFromMovieDetails } = useCreateFavoriteMovie()
 
     useEffect(() => {
         fetchMovieDetails({ movie_id: movieId })
@@ -58,11 +60,13 @@ const MovieDetailScreen = ({ route, navigation }: MovieDetailScreenProps) => {
                     <MovieHeader
                         movieDetails={movieDetails as MovieDetailsResponse}
                         isFavorite={isFavorite(movieId)}
-                        handleToggleFavorite={() =>
-                            handleToggleFavorite(
-                                movieDetails as MovieDetailsResponse
-                            )
-                        }
+                        handleToggleFavorite={() => {
+                            if (movieDetails) {
+                                handleToggleFavorite(
+                                    createFromMovieDetails(movieDetails)
+                                )
+                            }
+                        }}
                     />
                     <MovieOverview overview={movieDetails?.overview ?? ''} />
                     <MovieGenres genres={movieDetails?.genres ?? []} />
