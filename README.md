@@ -1,6 +1,6 @@
 # 🎬 MoovBuddy Case
 
-Film keşfetme ve yönetme deneyiminizi zenginleştiren modern bir mobil uygulama. Popüler filmleri keşfedin, detaylı bilgilere ulaşın ve favorilerinizi kolayca yönetin.
+Filmler hakkında bilgi almak için mini bir uygulama.
 
 ## 🎥 Demo
 
