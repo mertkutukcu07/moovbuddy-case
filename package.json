@@ -1,0 +1,51 @@
+{
+    "name": "moovbuddy-case",
+    "version": "1.0.0",
+    "main": "index.ts",
+    "scripts": {
+        "start": "expo start",
+        "android": "expo start --android",
+        "ios": "expo start --ios",
+        "web": "expo start --web",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "format": "prettier --write ."
+    },
+    "dependencies": {
+        "@react-native-async-storage/async-storage": "1.23.1",
+        "@react-navigation/bottom-tabs": "^7.2.0",
+        "@react-navigation/native": "^7.0.14",
+        "@react-navigation/native-stack": "^7.2.0",
+        "@reduxjs/toolkit": "^2.5.0",
+        "axios": "^1.7.9",
+        "date-fns": "^4.1.0",
+        "expo": "~52.0.23",
+        "expo-status-bar": "~2.0.0",
+        "phosphor-react-native": "^2.2.2",
+        "react": "18.3.1",
+        "react-native": "0.76.5",
+        "react-native-gesture-handler": "^2.21.2",
+        "react-native-safe-area-context": "^5.0.0",
+        "react-native-screens": "^4.4.0",
+        "react-native-svg": "15.8.0",
+        "react-redux": "^9.2.0",
+        "redux-persist": "^6.0.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.25.2",
+        "@types/react": "^19.0.2",
+        "@types/react-native": "^0.73.0",
+        "@typescript-eslint/eslint-plugin": "^8.18.2",
+        "@typescript-eslint/parser": "^8.18.2",
+        "eslint": "8.56.0",
+        "eslint-config-expo": "^8.0.1",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-config-universe": "^14.0.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "eslint-plugin-react": "^7.37.3",
+        "eslint-plugin-react-hooks": "^5.1.0",
+        "prettier": "^3.4.2",
+        "typescript": "^5.3.3"
+    },
+    "private": true
+}
