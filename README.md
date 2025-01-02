@@ -1,4 +1,4 @@
-# 🎬 MoovBuddy Case
+# 🎬 Movie App
 
 Filmler hakkında bilgi almak için mini bir uygulama.
 
